@@ -22,7 +22,7 @@ class GeneradorNumeros:
         valores = [0] * cantidad
         for i in range(cantidad):
             if i == 0:
-                valores[i] = self._generar_numero_random(semilla)
+                valores[i] = semilla
             else:
                 valores[i] = self._generar_numero_random(valores[i - 1])
         if normalizado:
