@@ -2,20 +2,20 @@ class GeneradorNumeros:
 
     def __init__(self, incremento=None, multiplicador=None, modulo=None):
         if incremento is None:
-            self.incremento = 1664525
+            self._incremento = 1664525
         else:
-            self.incremento = incremento
+            self._incremento = incremento
         if multiplicador is None:
-            self.multiplicador = 1013904223
+            self._multiplicador = 1013904223
         else:
-            self.multiplicador = multiplicador
+            self._multiplicador = multiplicador
         if modulo is None:
-            self.modulo = 2 ** 32
+            self._modulo = 2 ** 32
         else:
-            self.modulo = modulo
+            self._modulo = modulo
 
     def _generar_numero_random(self, x):
-        valor = (self.multiplicador * x + self.incremento) % self.modulo
+        valor = (self._multiplicador * x + self._incremento) % self._modulo
         return valor
 
     def generar_numeros(self, semilla, cantidad, normalizado=False):
@@ -27,7 +27,7 @@ class GeneradorNumeros:
                 valores[i] = self._generar_numero_random(valores[i - 1])
         if normalizado:
             for i, val in enumerate(valores):
-                valores[i] = val / (self.modulo * 1.0)
+                valores[i] = val / (self._modulo * 1.0)
         return valores
 
     def imprimir(self, array):

@@ -4,7 +4,7 @@ import GeneradorNumeros as GenNums
 
 
 # Semilla: Parte entera del promedio de los padrones
-semilla = (80560 + 92345) // 2  # type: int
+semilla = (80560 + 85977) // 2  # type: int
 
 generador = GenNums.GeneradorNumeros()
 valores = generador.generar_numeros(semilla, 6)
