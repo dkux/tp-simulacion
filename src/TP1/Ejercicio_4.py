@@ -11,6 +11,8 @@ fig, ax = plt.subplots(1, 1)
 media_normal = 35.0
 desvio_e_normal = 5.0
 lamb = 1 / 35.0
+#Hay que Normalizar la Dist. Normal
+#z = x-media_normal/desvio_e_normal
 
 def inversa_exponencial(x):
     return -math.log(1-x)/lamb
@@ -40,7 +42,7 @@ nro_muestras = 1000
 for index, value in enumerate(valores):
     pass
     #lamb=1
-    probabilidad_aceptar = funcion_normal_estandard(value)/(c*funcion_exponencial(value,lamb))
+    probabilidad_aceptar = funcion_normal_estandard(value)/(maximo*funcion_exponencial(value,lamb))
     if probabilidad_aceptar <  0.5:
         pass
     else:
