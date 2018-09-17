@@ -8,8 +8,18 @@ import matplotlib.pyplot as plt
 
 fig, ax = plt.subplots(1, 1)
 
+media_normal = 35.0
+desvio_e_normal = 5.0
+lamb = 1 / 35.0
+
+def inversa_exponencial(x):
+    return -math.log(1-x)/lamb
+
 def funcion_normal_estandard(x):
-    return (1/math.sqrt(2*math.pi))*math.e**(-x**2/2)
+    return (1/math.sqrt(2*math.pi*desvio_e_normal**2))*math.e**(-x**2/2)
+
+def funcion_normal(x):
+    return (1/math.sqrt(2*math.pi))*math.e**((-1*(x-media_normal)**2)/(2*desvio_e_normal**2))
 
 def funcion_exponencial(x,lamb):
     return (lamb*math.e**(-lamb*x))
@@ -17,16 +27,21 @@ def funcion_exponencial(x,lamb):
 def funcion_exponencial_vs_normal_standard(x):
     return ((math.sqrt(2/math.pi))*math.e**(x-(x**2/2)))
 
-c = math.sqrt(2*math.e/math.pi) #si x es 1 el exponente de funcion_exponencial_vs_normal_standard es maximo
+maximo = funcion_normal(media_normal)
 
 semilla = (80560 + 85977) // 2  # type: int
 generador = GenNums.GeneradorNumeros()
 valores = generador.generar_numeros(semilla, 1000, True)
 
+valores = map(inversa_exponencial, valores)
 
+nro_muestras = 1000
 
 for index, value in enumerate(valores):
     pass
-    lamb=1
-    probabilidad = funcion_normal_estandard(value)/(c*funcion_exponencial(value,lamb))
-    #if value < 
+    #lamb=1
+    probabilidad_aceptar = funcion_normal_estandard(value)/(c*funcion_exponencial(value,lamb))
+    if probabilidad_aceptar <  0.5:
+        pass
+    else:
+        pass
