@@ -6,13 +6,22 @@ import GeneradorNumeros as GenNums
 from scipy.stats import norm
 import matplotlib.pyplot as plt
 
-fig, ax = plt.subplots(1, 1)
 
+
+fig, ax = plt.subplots(1, 1)
+delta = 0.01
 media_normal = 35.0
 desvio_e_normal = 5.0
 lamb = 1 / 35.0
 #Hay que Normalizar la Dist. Normal
 #z = x-media_normal/desvio_e_normal
+#x = z*desvio_e_normal+media_normal
+
+def ajuste_extremos(x):
+    x = [i * (1-2*delta) for i in x]
+    #return (1-2*delta)*x+delta
+    x = [i + delta for i in x]
+    return x
 
 def inversa_exponencial(x):
     return -math.log(1-x)/lamb
@@ -34,10 +43,8 @@ maximo = funcion_normal(media_normal)
 semilla = (80560 + 85977) // 2  # type: int
 generador = GenNums.GeneradorNumeros()
 valores = generador.generar_numeros(semilla, 1000, True)
+res = ajuste_extremos(valores)
 
-valores = map(inversa_exponencial, valores)
-
-nro_muestras = 1000
 
 for index, value in enumerate(valores):
     pass
