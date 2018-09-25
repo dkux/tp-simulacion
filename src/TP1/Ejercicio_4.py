@@ -48,7 +48,9 @@ num = 100 #cantidad de valores a simular
 z = []
 
 i=0
+j=0
 while i<num:
+    j = j+1
     t = random()
     s = random()
     p = funcion_normal_estandard(t)/(c*funcion_exponencial(t,lamb))
@@ -60,7 +62,9 @@ while i<num:
         else:
             z.append(-t)
             i = i+1
+    
 
 #probabilidad_aceptar = funcion_normal_estandard(t)/(c*funcion_exponencial(t,lamb))
 x = desnormalizar(z,mu,sigma)
 print x
+print "Porcentaje de rechazos = "+str((1.0*j-i)/j)
