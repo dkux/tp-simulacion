@@ -2,16 +2,14 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 import GeneradorNumeros as GenNums
-
 from scipy.stats import norm
-import matplotlib.pyplot as plt
-fig, ax = plt.subplots(1, 1)
 
 def ajuste_extremos(x):
     x = [i * (1-2*delta) + delta for i in x]
     #return (1-2*delta)*x+delta
     #x = [i + delta for i in x]
     return x
+
 
 semilla = (80560 + 85977) // 2  # type: int
 num = 18500 #cantidad de puntos a simular
@@ -60,4 +58,5 @@ for value in inversas:
     h[k] = h[k]+1
 print sum(h)
 #p, bins, patches = plt.hist(inversas, m , density=True, facecolor='g', alpha=0.75)
-plt.show(h)
+plt.hist(inversas)
+plt.show()
