@@ -2,8 +2,9 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 import GeneradorNumeros as GenNums
-
 from scipy.stats import norm
+from scipy import stats
+import statistics
 import matplotlib.pyplot as plt
 from random import *
 
@@ -68,3 +69,11 @@ while i<num:
 x = desnormalizar(z,mu,sigma)
 print x
 print "Porcentaje de rechazos = "+str((1.0*j-i)/j)
+
+
+print "Media Calculada: "+str(np.mean(x))+" vs "+ str(mu)
+print "Desvio Calculado: "+str(np.var(x))+" vs "+ str(sigma)
+print "Moda Calculada: "+str(stats.mode(x)[0])+" vs "+ str(mu)
+
+plt.hist(x)
+plt.show()

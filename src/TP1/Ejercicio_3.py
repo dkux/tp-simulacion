@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import GeneradorNumeros as GenNums
 from scipy.stats import norm
+from scipy import stats
+import statistics
 
 def ajuste_extremos(x):
     x = [i * (1-2*delta) + delta for i in x]
@@ -52,11 +54,21 @@ for value in res:
 
 max_inv = max(inversas)
 min_inv = min(inversas)
-h = [0] * m
-for value in inversas:
-    k = int(math.floor((value+gamma)/q))
-    h[k] = h[k]+1
-print sum(h)
+#h = [0] * m
+#for value in inversas:
+#    k = int(math.floor((value+gamma)/q))
+#    h[k] = h[k]+1
+#print sum(h)
 #p, bins, patches = plt.hist(inversas, m , density=True, facecolor='g', alpha=0.75)
+inversas_2 = []
+for i in inversas:
+    inversas_2.append(round(i, 2))
+
+print "Media Calculada: "+str(np.mean(inversas_2))+" vs "+ "0"
+print "Desvio Calculado: "+str(np.var(inversas_2))+" vs "+ "1"
+print "Moda Calculada: "+str(stats.mode(inversas_2)[0])+" vs "+ "0"
+
 plt.hist(inversas)
 plt.show()
+
+
