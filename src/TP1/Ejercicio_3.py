@@ -24,7 +24,7 @@ gamma = 3.0 #valores maximos y minimos de la normal f(x)
 q=(2*gamma)/(m-1) #ancho de bin para la acumulada de la normal F(x)
 
 
-y = np.linspace(delta,1-delta, n) #genera valores uniformes en la acumulada
+y = np.linspace(delta,1-delta, n) #genera valores uniformes discretos igualmente espaciados en la acumulada
 x = norm.ppf(y) #invierte la acumulada
 
 #plt.plot(x, y, label='linear')

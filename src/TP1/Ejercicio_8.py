@@ -11,6 +11,7 @@ ns = 0.01 #nivel de significacion
 
 #Primero genereramos el resultado esperado con m bins
 resultado_esperado = [1.0] * m
+
 for idx, val in enumerate(resultado_esperado):
     if idx == 0:
         resultado_esperado[idx] = p
