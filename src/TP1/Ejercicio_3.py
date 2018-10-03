@@ -15,7 +15,7 @@ def ajuste_extremos(x):
 
 semilla = (80560 + 85977) // 2  # type: int
 num = 18500 #cantidad de puntos a simular
-n=981 #cant de intervalos de F(x) preferentemente impar para considerar el 0 
+n=99 #cant de intervalos de F(x) preferentemente impar para considerar el 0 
 delta=0.01 #valores maximos y minimos de la F(x)
 w=(1-2*delta)/(n-1) #ancho de bin para la acumulada de la normal F(x)
 
@@ -24,9 +24,17 @@ gamma = 3.0 #valores maximos y minimos de la normal f(x)
 q=(2*gamma)/(m-1) #ancho de bin para la acumulada de la normal F(x)
 
 
-x = np.linspace(norm.ppf(delta),norm.ppf(1-delta), n) #invierte la normal
+y = np.linspace(delta,1-delta, n) #genera valores uniformes en la acumulada
+x = norm.ppf(y) #invierte la acumulada
+
+#plt.plot(x, y, label='linear')
+#plt.show()
+
 max_x = max(x)
 min_x = min(x)
+
+max_y = max(y)
+min_y = min(y)
 #print x
 generador = GenNums.GeneradorNumeros()
 valores = generador.generar_numeros(semilla, num, True)
@@ -47,7 +55,6 @@ for value in res:
     k=int(math.floor((value-delta) / w)) # Este es mi indice de bin
     #interpola los valores de la F^-1(x)
     inv = ((value - (delta+k*w))/w) * (x[k+1]-x[k])+x[k] 
-    
     #inv = np.interp(value,[delta+k*w, delta+(k+1)*w],[x[k],x[k+1]])
     inversas.append(inv)
 #print inversas
@@ -68,7 +75,7 @@ print "Media Calculada: "+str(np.mean(inversas_2))+" vs "+ "0"
 print "Desvio Calculado: "+str(np.var(inversas_2))+" vs "+ "1"
 print "Moda Calculada: "+str(stats.mode(inversas_2)[0])+" vs "+ "0"
 
-plt.hist(inversas)
+plt.hist(inversas_2,50)
 plt.show()
 
 

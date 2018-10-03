@@ -10,7 +10,6 @@ from random import *
 
 
 
-fig, ax = plt.subplots(1, 1)
 delta = 0.01
 mu = 35.0
 sigma = 5.0
