@@ -7,5 +7,7 @@ import GeneradorNumeros as GenNums
 # Cada uno de los experimentos se puede modelar con una distribución Geométrica
 
 valores = np.random.geometric(0.5, 10000)
-plt.hist(valores, 20)
+#plt.DataFrame(valores).hist(range=(-0.5, max(valores)+0.5), bins=max(valores)+1)
+
+plt.hist(valores, bins=max(valores)+1, range=(0, max(valores)+1))
 plt.show()
