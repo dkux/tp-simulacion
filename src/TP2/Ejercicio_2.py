@@ -9,51 +9,92 @@ from numpy import linalg as LA
 lambda_L = 1/40.0
 lambda_R = 1/30.0
 
-rand_exp_lambda_L = np.random.exponential(1/lambda_L)
-rand_exp_lambda_R = np.random.exponential(1/lambda_L)
-
-def exp_lambda_L_T(t):
-    return(lambda_L*math.exp(-1*lambda_L*t))
-
-def exp_lambda_R_T(t):
-    return(lambda_R*math.exp(-1*lambda_R*t))
-
-matriz_transision = []
 
 
-invariante = exp_lambda_L_T(0)*exp_lambda_R_T(0)+exp_lambda_L_T(1)*exp_lambda_R_T(1)
+matriz_trancision = []
 
-aumento = exp_lambda_L_T(1)*exp_lambda_R_T(0)
+p = (1-lambda_L)*(1-lambda_R)+lambda_L*lambda_R
+#p = 0.5
+q = (1-lambda_L)*lambda_R
+#q = 0.3
 
-disminuye = exp_lambda_L_T(0)*exp_lambda_R_T(1)
-
+n = 30
+iteraciones = 100000
 #generar matriz
-for i in range(0,30):
+for i in range(n):
     my_list=[]
-    for j in range(0,29):
+    for j in range(n):
         if i==j:
-            my_list.append(invariante)
-        if i==j+1:
-            my_list.append(aumento)
-        if i==j-1:
-            my_list.append(disminuye)
+            my_list.append(p)
+        elif j==i+1:
+            my_list.append(1-p-q)
+        elif j==i-1:
+            my_list.append(q)
         else:
             my_list.append(0)
-    matriz_transision.append(my_list)
+    matriz_trancision.append(my_list)
 
+matriz_trancision[0][1] = 1-p
+matriz_trancision[n-1][n-2] = 1-p
 
-#print(type(matriz_transision))
-#print(len(matriz_transision))
-#print(len(matriz_transision[0]))
+mt = np.array(matriz_trancision).transpose()
 
-mt = np.array(matriz_transision)
-print(type(mt))
-print(len(mt))
-print(len(mt[0]))
-
-#multiplico la matriz 6 veces
-power_matriz_transistion = matrix_power(mt,6)
+#multiplico la matriz iteraciones veces
+power_matriz_trancision = matrix_power(mt,iteraciones)
 
 #calculo de Autovalores y Autovectores
-autovectores , autovalores = LA.eig(matriz_transision)
+autovalores, autovectores = LA.eig(matriz_trancision)
+
+#Defino el estado inicial 
+P0 = np.zeros(n)
+P0[0]=1
+
+#Calculo el estado final
+Pn =power_matriz_trancision.dot(P0)
+#print np.sum(Pn)
+veces=np.zeros(n)
+veces[0]=1
+estado=0
+window=0.01 #ventana 10 ms
+
+L=np.zeros(iteraciones)
+R=np.zeros(iteraciones)
+for i in range(iteraciones):
+    #Tiempo de llegada del próximo
+    tL=np.random.binomial(1,lambda_L)
+    if tL>0 and estado<n-1:
+        #Llegan pedidos y no me paso del maximo
+        estado=estado+1
+        if i>0:
+            L[i]=L[i-1]+1
+    else:
+        #No llegan pedidos
+        L[i]=L[i-1]
+        
+    #Tiempo de salida del próximo
+    tR=np.random.binomial(1,lambda_R) 
+    if tR>0 and estado >0:
+        #Se resuelven pedidos y no me paso del minimo
+        estado=estado-1
+        if i>0:
+            R[i]=R[i-1]+1
+    else:
+        #No se resurlven pedidos
+        R[i]=R[i-1]
+    veces[estado]=veces[estado]+1
+
+plt.plot(L)
+plt.show()
+# x = []
+# plt.hist(veces,20)
+plt.plot(veces)
+plt.show()
+
+plt.plot(Pn)
+plt.plot(veces/iteraciones)
+plt.show()
+
+print "Porcentaje de tiempo que el servidor se encuentra sin procesar solicitudes = "+str(veces[0]/iteraciones)
+
+exit(0)
 
