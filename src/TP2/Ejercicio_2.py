@@ -9,8 +9,6 @@ from numpy import linalg as LA
 lambda_L = 1/40.0
 lambda_R = 1/30.0
 
-
-
 matriz_trancision = []
 
 p = (1-lambda_L)*(1-lambda_R)+lambda_L*lambda_R

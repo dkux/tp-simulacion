@@ -21,9 +21,6 @@ W_next = np.matrix([0.0,0.0,0.0])
 #Posicion inicial
 n=100
 
-
-#W_curr = W_next
-
 for x in [-1,0,1]:
     for y in [-1,0,1]:
         for z in [-1,0,1]:

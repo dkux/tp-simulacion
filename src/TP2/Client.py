@@ -1,5 +1,5 @@
 import numpy
-
+from random import randint
 
 class Client(object):
 
@@ -18,4 +18,4 @@ class Client(object):
         print("%.2f Client type %s attended" % (self.env.now, self.type))
 
     def get_petition_duration(self):
-return self.petition_duration[self.type]
+        return self.petition_duration[self.type]    
