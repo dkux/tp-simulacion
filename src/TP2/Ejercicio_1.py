@@ -3,7 +3,7 @@ from scipy.stats import bernoulli
 import numpy
 
 
-# Tiempo entre llamadas Exp media 4 seg
+# Tiempo entre llamadas Exp media 4 segn
 # Dos bases de datos
 # Prob de ser atendida por la DB_1 0,6
 # Prob de ser atendida por la DB_2 0,4
