@@ -1,3 +1,4 @@
+# coding=utf-8
 import simpy
 import numpy
 import random
@@ -6,20 +7,20 @@ import random
 def atencion(env, cajeros):
     index = 1
     queues = []
-    max_tam_queue = []
+    max_tam_cola = [0, 0]
     while index <= 1000:
 
-        print("Cliente %d en el tiempo %d- tamaño de la cola" % (index, env.now, queues))
+        print("Cliente %d en el tiempo %d tamaño de la cola [ %d %d ]" %(index, env.now, max_tam_cola[0], max_tam_cola[1]))
         # Los Personas llegan dist uniforme discreta
         llegada_persona = random.randint(4, 6)
         yield env.timeout(llegada_persona)
 
-        enviroment.process(atencionCliente(env, queues, cajeros))
+        enviroment.process(atencionCliente(env, queues, cajeros, max_tam_cola))
 
         index = index + 1
 
 
-def atencionCliente(env, queues, cajeros):
+def atencionCliente(env, queues, cajeros, max_tam_cola):
     # Selecciono un cajero
     cajero_seleccionado = None
     for x in cajeros:
