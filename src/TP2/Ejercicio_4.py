@@ -1,6 +1,8 @@
 # coding=utf-8
 import simpy
 import random
+import numpy
+
 
 max_wait_time = 0
 
@@ -9,7 +11,6 @@ def atencion(env, atm):
     max_queue_length = 0
     while True:
         # El timpo comienza en 0 y se mide en segundos
-
         if env.now < 120*60:
             # Estoy en el rango de 10:00 a 12:00 se transforma en tiempo entre 0 y 120*60 segundos
             media_arribo = 240.0
@@ -34,11 +35,11 @@ def atencion(env, atm):
 
 def usar_atm(env, atm):
     global max_wait_time
-    tipo = random.random
     queue_time = env.now
-    if tipo < 0.1:
+    tipo_cliente = numpy.random.choice(['1', '2', '3'], p=[0.1, 0.7, 0.2])
+    if tipo_cliente == '1':
         tiempo_proceso = random.randint(1*60, 7*60)
-    elif 0.1 >= tipo < 0.8:
+    elif tipo_cliente == '2':
         tiempo_proceso = random.randint(1*60, 3*60)
     else:
         tiempo_proceso = random.randint(1*60, 5*60)
