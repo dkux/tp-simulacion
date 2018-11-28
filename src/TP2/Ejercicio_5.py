@@ -5,7 +5,6 @@ import simpy
 from Checkout import Checkout
 from Client import Client
 
-
 client_count = 200
 arrival_rate = 45.0
 server_count = 5
